@@ -6,7 +6,7 @@
 #include <urdf/model.h>
 #include <tinyxml.h>
 #include <ros/console.h>
-
+#include <iostream>
 using namespace std;
 //using namespace urdf;
 namespace rsg_urdfloader{
@@ -14,9 +14,17 @@ namespace rsg_urdfloader{
 class URDFtoRSG{
 
 public:
+
+URDFtoRSG(){
+ 
+};
+
+~URDFtoRSG(){};
+
 bool rsgFromUrdfModel(const urdf::ModelInterface& robot_model)
 {
-  robot_model.getRoot()->name;
+  std::cout << "Found a robot with root :" << robot_model.getRoot()->name << std::endl;
+  
   //  add all children
   for (size_t i=0; i<robot_model.getRoot()->child_links.size(); i++)
    // if (!addChildrenToRSG(robot_model.getRoot()->child_links[i]))
@@ -62,8 +70,8 @@ bool rsgFromString(const string& xml)
 };
 
 
-};
 
+};
 }
 
 #endif

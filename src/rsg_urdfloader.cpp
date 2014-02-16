@@ -4,9 +4,12 @@
 
 using namespace std;
 using namespace urdf;
+using namespace rsg_urdfloader;
 
 int main(int argc, char** argv)
 {
+  URDFtoRSG *urdftorsg;
+  urdftorsg = new URDFtoRSG();
   if (argc < 2){
     std::cerr << "Expect xml file to parse" << std::endl;
     return -1;
@@ -15,9 +18,8 @@ int main(int argc, char** argv)
   if (!robot_model.initFile(argv[1]))
   {cerr << "Could not generate robot model" << endl; return false;}
 
-  //Tree my_tree;
-  //if (!kdl_parser::treeFromUrdfModel(robot_model, my_tree)) 
-  //{cerr << "Could not extract kdl tree" << endl; return false;}
+  if (!urdftorsg->rsgFromUrdfModel(robot_model)) 
+   {cerr << "Could not Load the Robot Scene Graph" << endl; return false;}
 
   /*// walk through tree
   cout << " ======================================" << endl;
@@ -26,7 +28,3 @@ int main(int argc, char** argv)
   SegmentMap::const_iterator root = my_tree.getRootSegment();
   printLink(root, "");*/
 }
-
-
-
-
