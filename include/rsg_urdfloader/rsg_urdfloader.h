@@ -7,31 +7,47 @@
 #include <tinyxml.h>
 #include <ros/console.h>
 #include <iostream>
+#include <brics_3d/util/OSGPointCloudVisualizer.h>
+#include <brics_3d/util/OSGTriangleMeshVisualizer.h>
+#include <brics_3d/worldModel/sceneGraph/OSGVisualizer.h>
+#include <brics_3d/core/PointCloud3D.h>
+#include <brics_3d/core/Logger.h>
+#include <brics_3d/core/HomogeneousMatrix44.h>
+#include <brics_3d/core/TriangleMeshImplicit.h>
+#include <brics_3d/core/TriangleMeshExplicit.h>
+#include <brics_3d/algorithm/filtering/Octree.h>
+#include <brics_3d/algorithm/filtering/BoxROIExtractor.h>
+#include <brics_3d/algorithm/registration/IterativeClosestPointFactory.h>
+#include <brics_3d/algorithm/meshGeneration/DelaunayTriangulationOSG.h>
+#include <brics_3d/worldModel/WorldModel.h>
+#include <brics_3d/worldModel/sceneGraph/Mesh.h>
+#include <brics_3d/worldModel/sceneGraph/Box.h>
+#include <brics_3d/worldModel/sceneGraph/Cylinder.h>
+#include <brics_3d/worldModel/sceneGraph/DotGraphGenerator.h>
+
+
 using namespace std;
 using namespace urdf;
+using namespace brics_3d;
+using namespace brics_3d::rsg;
 namespace rsg_urdfloader{
 
 class URDFtoRSG{
 
 public:
+WorldModel *wm;
 
 URDFtoRSG(){
- 
+	//With every loader, a new world model is created
+	wm = new WorldModel;
 };
 
-~URDFtoRSG(){};
+~URDFtoRSG(){
+	delete wm;
 
-bool rsgFromUrdfModel(const urdf::ModelInterface& robot_model)
-{
-  std::cout << "Found a robot with root :" << robot_model.getRoot()->name << std::endl;
-  
-  //  add all children
-  for (size_t i=0; i<robot_model.getRoot()->child_links.size(); i++)
-    if (!addChildrenToRSG(robot_model.getRoot()->child_links[i]))
-      return false;
-
-  return true;
 };
+
+bool rsgFromUrdfModel(const urdf::ModelInterface& robot_model);
 
 
 bool rsgFromXml(TiXmlDocument *xml_doc)
@@ -69,37 +85,15 @@ bool rsgFromString(const string& xml)
   return rsgFromXml(&urdf_xml);
 };
 
+bool visualize();
+
 private:
 
 // recursive function to walk through tree
-bool addChildrenToRSG(boost::shared_ptr<const urdf::Link> root)
-{
-  std::vector<boost::shared_ptr<urdf::Link> > children = root->child_links;
-  ROS_DEBUG("Link %s had %i children", root->name.c_str(), (int)children.size());
-
-  // constructs the optional inertia
-  /*RigidBodyInertia inert(0);
-  if (root->inertial) 
-    inert = toKdl(root->inertial);
-
-  // constructs the kdl joint
-  Joint jnt = toKdl(root->parent_joint);
-
-  // construct the kdl segment
-  Segment sgm(root->name, jnt, toKdl(root->parent_joint->parent_to_joint_origin_transform), inert);
-
-  // add segment to tree
-  tree.addSegment(sgm, root->parent_joint->parent_link_name);
-
-  // recurslively add all children*/
-  for (size_t i=0; i<children.size(); i++){
-    if (!addChildrenToRSG(children[i]))
-      return false;
-  }
-  return true;
-}
-
-
+bool addChildrenToRSG(boost::shared_ptr<const urdf::Link> root);
+vector<rsg::Attribute> addJoint(boost::shared_ptr<urdf::Joint> jnt);
+vector<rsg::Attribute> addMassProperties(boost::shared_ptr<const urdf::Link> link);
+bool addGeometry();
 
 
 
