@@ -90,7 +90,7 @@ bool visualize();
 private:
 
 // recursive function to walk through tree
-bool addChildrenToRSG(boost::shared_ptr<const urdf::Link> root);
+bool addChildrenToRSG(boost::shared_ptr<const urdf::Link> root, rsg::Id id);
 vector<rsg::Attribute> addJoint(boost::shared_ptr<urdf::Joint> jnt);
 vector<rsg::Attribute> addMassProperties(boost::shared_ptr<const urdf::Link> link);
 bool addGeometry();

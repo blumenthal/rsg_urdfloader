@@ -14,19 +14,19 @@ bool URDFtoRSG::rsgFromUrdfModel(const urdf::ModelInterface& robot_model)
 
   //  add all children
   for (size_t i = 0; i < robot_model.getRoot()->child_links.size(); i++)
-    if (!addChildrenToRSG(robot_model.getRoot()->child_links[i])) return false;
+    if (!addChildrenToRSG(robot_model.getRoot()->child_links[i], wm->getRootNodeId())) return false;
 
   return true;
 }
 
 // recursive function to walk through tree
-bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root)
+bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root, rsg::Id id)
 {
   std::vector<boost::shared_ptr<urdf::Link> > children = root->child_links;
   ROS_DEBUG("Link %s had %i children", root->name.c_str(), (int)children.size());
   vector<rsg::Attribute> tmpAttributes;
   tmpAttributes.clear();
-
+  rsg::Id jntId = 0;
   // constructs the optional inertia
 
   /*RigidBodyInertia inert(0);
@@ -35,8 +35,11 @@ bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root)
   tmpAttributes.clear();
 
   // Collect atributes of the joint
+ 
   tmpAttributes = addJoint(root->parent_joint);
-
+  HomogeneousMatrix44::IHomogeneousMatrix44Ptr axis(new HomogeneousMatrix44(1,0,0, 0,1,0, 0,0,1, 0.0,0.0,0.0));
+  wm->scene.addTransformNode(id, jntId, tmpAttributes, axis, TimeStamp(0.0));
+  LOG(INFO) << "Joint added to the world model " << jntId;
   /*tmpAttributes.clear();
      // construct the kdl segment
      Segment sgm(root->name, jnt,
@@ -44,10 +47,10 @@ bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root)
 
      // add segment to tree
      tree.addSegment(sgm, root->parent_joint->parent_link_name);*/
-
+  
   // recurslively add all children*/
   for (size_t i = 0; i < children.size(); i++) {
-    if (!addChildrenToRSG(children[i])) return false;
+    if (!addChildrenToRSG(children[i],jntId)) return false;
   }
   return true;
 }
