@@ -9,9 +9,7 @@ using namespace rsg_urdfloader;
 
 bool URDFtoRSG::rsgFromUrdfModel(const urdf::ModelInterface& robot_model)
 {
-  std::cout << "Found a robot with root :" << robot_model.getRoot()->name <<
-  std::endl;
-
+  std::cout << "Found a robot with root :" << robot_model.getRoot()->name << std::endl;
   //  add all children
   for (size_t i = 0; i < robot_model.getRoot()->child_links.size(); i++)
     if (!addChildrenToRSG(robot_model.getRoot()->child_links[i], wm->getRootNodeId())) return false;
@@ -23,7 +21,7 @@ bool URDFtoRSG::rsgFromUrdfModel(const urdf::ModelInterface& robot_model)
 bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root, rsg::Id id)
 {
   std::vector<boost::shared_ptr<urdf::Link> > children = root->child_links;
-  ROS_DEBUG("Link %s had %i children", root->name.c_str(), (int)children.size());
+  ROS_INFO("Link %s has %i children", root->name.c_str(), (int)children.size());
   vector<rsg::Attribute> tmpAttributes;
   tmpAttributes.clear();
   rsg::Id jntId = 0;
@@ -94,6 +92,26 @@ vector<rsg::Attribute>URDFtoRSG::addJoint(boost::shared_ptr<urdf::Joint>jnt)
   return tmpAttributes;
 }
 
+bool URDFtoRSG::visualize(){
+
+        brics_3d::rsg::DotGraphGenerator 	graphPrinter;
+        std::ofstream 	output;
+        wm->scene.executeGraphTraverser(&graphPrinter, wm->scene.getRootId());
+        std::string fileName = "current_graph.gv";
+	output.open(fileName.c_str(), std::ios::trunc);
+	output << graphPrinter.getDotGraph();
+	output.flush();
+	output.close();
+	system("dot current_graph.gv -Tsvg -o current_graph.gv.svg"); //e.g. with firefox browser you can observe changes...
+
+       
+
+       
+
+}
+
+
+//Usage
 int main(int argc, char **argv)
 {
   URDFtoRSG *urdftorsg;
@@ -115,5 +133,12 @@ int main(int argc, char **argv)
 
   if (!urdftorsg->rsgFromUrdfModel(robot_model))
   { cerr << "Could not Load the Robot Scene Graph" << endl; return false; }
+
+  //always call at the end..not an observer
+  urdftorsg->visualize();
+
 }
+
+
+
 
