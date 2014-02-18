@@ -1,0 +1,19 @@
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- rosconsole
+- catkin
+- roscpp
+- urdf
+- cmake_modules
+- rostest
+- orocos_kdl
+description: The rsg_urdfloader package
+license: TODO
+maintainers: locomotec <locomotec@todo.todo>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''
