@@ -24,12 +24,13 @@ bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root, rsg::I
   ROS_INFO("Link %s has %i children", root->name.c_str(), (int)children.size());
   vector<rsg::Attribute> tmpAttributes;
   tmpAttributes.clear();
-  rsg::Id jntId = 0;
-  // constructs the optional inertia
-
-  /*RigidBodyInertia inert(0);
-     if (root->inertial)
-     inert = toKdl(root->inertial);*/
+  rsg::Id jntId = 0, massId = 0,geomId = 0;
+  // Collect Attributes of inertia
+  tmpAttributes = addMassProperties(root);
+  //HomogeneousMatrix44::IHomogeneousMatrix44Ptr com(new HomogeneousMatrix44(1,0,0, 0,1,0, 0,0,1, 0.0,0.0,0.0));
+  //wm->scene.addTransformNode(id, massId, tmpAttributes, com, TimeStamp(0.0));
+  wm->scene.addGroup(id, massId, tmpAttributes);
+  LOG(INFO) << "Mass Properties added to the world model " << massId;
   tmpAttributes.clear();
 
   // Collect atributes of the joint
@@ -58,7 +59,7 @@ vector<rsg::Attribute>URDFtoRSG::addJoint(boost::shared_ptr<urdf::Joint>jnt)
 {
   vector<rsg::Attribute> tmpAttributes;
   tmpAttributes.clear();
-
+  tmpAttributes.push_back(Attribute("node", "Joint"));
   switch (jnt->type) {
   case urdf::Joint::FIXED: {
     tmpAttributes.push_back(Attribute("type", "FIXED"));
@@ -91,6 +92,17 @@ vector<rsg::Attribute>URDFtoRSG::addJoint(boost::shared_ptr<urdf::Joint>jnt)
   // empty attributes
   return tmpAttributes;
 }
+
+
+vector<rsg::Attribute>URDFtoRSG::addMassProperties(boost::shared_ptr<const urdf::Link> link){
+	 vector<rsg::Attribute> tmpAttributes;
+  	 tmpAttributes.clear();
+         tmpAttributes.push_back(Attribute("node", "Mass"));
+	 return tmpAttributes;
+
+
+}
+
 
 bool URDFtoRSG::visualize(){
 
