@@ -24,7 +24,9 @@
 #include <brics_3d/worldModel/sceneGraph/Box.h>
 #include <brics_3d/worldModel/sceneGraph/Cylinder.h>
 #include <brics_3d/worldModel/sceneGraph/DotGraphGenerator.h>
-
+#include <assimp/Importer.hpp> 
+#include <assimp/scene.h>
+#include <assimp/postprocess.h> 
 
 using namespace std;
 using namespace urdf;
@@ -84,6 +86,27 @@ bool rsgFromString(const string& xml)
   urdf_xml.Parse(xml.c_str());
   return rsgFromXml(&urdf_xml);
 };
+
+bool loadgeometry(const std::string& pFile){
+
+	
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile( pFile,
+	aiProcess_CalcTangentSpace |
+	aiProcess_Triangulate |
+	aiProcess_JoinIdenticalVertices |
+	aiProcess_SortByPType);
+	if( !scene)
+	{
+		std::cerr << "Error Found :: " << importer.GetErrorString() << std::endl;
+		return false;
+	}
+	
+	//DoTheSceneProcessing( scene);
+	return true;
+
+}
+
 
 bool visualize();
 

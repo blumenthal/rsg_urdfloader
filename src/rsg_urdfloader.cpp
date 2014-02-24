@@ -32,8 +32,7 @@ bool URDFtoRSG::addChildrenToRSG(boost::shared_ptr<const urdf::Link>root, rsg::I
   wm->scene.addGroup(id, massId, tmpAttributes);
   LOG(INFO) << "Mass Properties added to the world model " << massId;
   tmpAttributes.clear();
-
-  // Collect atributes of the joint
+ // Collect atributes of the joint
  
   tmpAttributes = addJoint(root->parent_joint);
   HomogeneousMatrix44::IHomogeneousMatrix44Ptr axis(new HomogeneousMatrix44(1,0,0, 0,1,0, 0,0,1, 0.0,0.0,0.0));
