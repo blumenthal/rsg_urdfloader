@@ -77,84 +77,107 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00024"></a>00024 <span class="preprocessor">#include &lt;brics_3d/worldModel/sceneGraph/Box.h&gt;</span>
 <a name="l00025"></a>00025 <span class="preprocessor">#include &lt;brics_3d/worldModel/sceneGraph/Cylinder.h&gt;</span>
 <a name="l00026"></a>00026 <span class="preprocessor">#include &lt;brics_3d/worldModel/sceneGraph/DotGraphGenerator.h&gt;</span>
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">using namespace </span>std;
-<a name="l00030"></a>00030 <span class="keyword">using namespace </span>urdf;
-<a name="l00031"></a>00031 <span class="keyword">using namespace </span>brics_3d;
-<a name="l00032"></a>00032 <span class="keyword">using namespace </span>brics_3d::rsg;
-<a name="l00033"></a><a class="code" href="namespacersg__urdfloader.html">00033</a> <span class="keyword">namespace </span>rsg_urdfloader{
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html">00035</a> <span class="keyword">class </span><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html">URDFtoRSG</a>{
+<a name="l00027"></a>00027 <span class="preprocessor">#include &lt;assimp/Importer.hpp&gt;</span> 
+<a name="l00028"></a>00028 <span class="preprocessor">#include &lt;assimp/scene.h&gt;</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#include &lt;assimp/postprocess.h&gt;</span> 
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keyword">using namespace </span>std;
+<a name="l00032"></a>00032 <span class="keyword">using namespace </span>urdf;
+<a name="l00033"></a>00033 <span class="keyword">using namespace </span>brics_3d;
+<a name="l00034"></a>00034 <span class="keyword">using namespace </span>brics_3d::rsg;
+<a name="l00035"></a><a class="code" href="namespacersg__urdfloader.html">00035</a> <span class="keyword">namespace </span>rsg_urdfloader{
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">public</span>:
-<a name="l00038"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a871eca0c146673efd0d400cb23c2f275">00038</a> WorldModel *<a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a871eca0c146673efd0d400cb23c2f275">wm</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a3bc8b1fbc41971f604bd9d9cd4545a09">00040</a> <a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a3bc8b1fbc41971f604bd9d9cd4545a09">URDFtoRSG</a>(){
-<a name="l00041"></a>00041         <span class="comment">//With every loader, a new world model is created</span>
-<a name="l00042"></a>00042         wm = <span class="keyword">new</span> WorldModel;
-<a name="l00043"></a>00043 };
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a4b58018552edab4257e811e7d8dd87da">00045</a> <a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a4b58018552edab4257e811e7d8dd87da">~URDFtoRSG</a>(){
-<a name="l00046"></a>00046         <span class="keyword">delete</span> wm;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048 };
+<a name="l00037"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html">00037</a> <span class="keyword">class </span><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html">URDFtoRSG</a>{
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="keyword">public</span>:
+<a name="l00040"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a871eca0c146673efd0d400cb23c2f275">00040</a> WorldModel *<a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a871eca0c146673efd0d400cb23c2f275">wm</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a3bc8b1fbc41971f604bd9d9cd4545a09">00042</a> <a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a3bc8b1fbc41971f604bd9d9cd4545a09">URDFtoRSG</a>(){
+<a name="l00043"></a>00043         <span class="comment">//With every loader, a new world model is created</span>
+<a name="l00044"></a>00044         wm = <span class="keyword">new</span> WorldModel;
+<a name="l00045"></a>00045 };
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a4b58018552edab4257e811e7d8dd87da">00047</a> <a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a4b58018552edab4257e811e7d8dd87da">~URDFtoRSG</a>(){
+<a name="l00048"></a>00048         <span class="keyword">delete</span> wm;
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050 <span class="keywordtype">bool</span> rsgFromUrdfModel(<span class="keyword">const</span> urdf::ModelInterface&amp; robot_model);
+<a name="l00050"></a>00050 };
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052 
-<a name="l00053"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#aabbd0ffde8cd51cf195484a78f2416db">00053</a> <span class="keywordtype">bool</span> rsgFromXml(TiXmlDocument *xml_doc)
-<a name="l00054"></a>00054 {
-<a name="l00055"></a>00055   urdf::Model robot_model;
-<a name="l00056"></a>00056   <span class="keywordflow">if</span> (!robot_model.initXml(xml_doc)){
-<a name="l00057"></a>00057     ROS_ERROR(<span class="stringliteral">&quot;Could not generate robot model&quot;</span>);
-<a name="l00058"></a>00058     <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00059"></a>00059   }
-<a name="l00060"></a>00060   <span class="keywordflow">return</span> rsgFromUrdfModel(robot_model);
-<a name="l00061"></a>00061 };
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a77a1a7db31d893df7d47cba83f6d7b04">00063</a> <span class="keywordtype">bool</span> rsgFromFile(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; file)
-<a name="l00064"></a>00064 {
-<a name="l00065"></a>00065   TiXmlDocument urdf_xml;
-<a name="l00066"></a>00066   urdf_xml.LoadFile(file);
-<a name="l00067"></a>00067   <span class="keywordflow">return</span> rsgFromXml(&amp;urdf_xml);
-<a name="l00068"></a>00068 };
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 
-<a name="l00071"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#aed39fa3297ce38d946ca0407cc5f4bc9">00071</a> <span class="keywordtype">bool</span> rsgFromParam(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; param)
-<a name="l00072"></a>00072 {
-<a name="l00073"></a>00073   urdf::Model robot_model;
-<a name="l00074"></a>00074   <span class="keywordflow">if</span> (!robot_model.initParam(param)){
-<a name="l00075"></a>00075     ROS_ERROR(<span class="stringliteral">&quot;Could not generate robot model&quot;</span>);
-<a name="l00076"></a>00076     <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00077"></a>00077   }
-<a name="l00078"></a>00078   <span class="keywordflow">return</span> rsgFromUrdfModel(robot_model);
-<a name="l00079"></a>00079 };
-<a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#ab1a52a06fee5c6200941c8e7829a5fef">00081</a> <span class="keywordtype">bool</span> rsgFromString(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; xml)
-<a name="l00082"></a>00082 {
-<a name="l00083"></a>00083   TiXmlDocument urdf_xml;
-<a name="l00084"></a>00084   urdf_xml.Parse(xml.c_str());
-<a name="l00085"></a>00085   <span class="keywordflow">return</span> rsgFromXml(&amp;urdf_xml);
-<a name="l00086"></a>00086 };
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088 <span class="keywordtype">bool</span> visualize();
+<a name="l00052"></a>00052 <span class="keywordtype">bool</span> rsgFromUrdfModel(<span class="keyword">const</span> urdf::ModelInterface&amp; robot_model);
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#aabbd0ffde8cd51cf195484a78f2416db">00055</a> <span class="keywordtype">bool</span> rsgFromXml(TiXmlDocument *xml_doc)
+<a name="l00056"></a>00056 {
+<a name="l00057"></a>00057   urdf::Model robot_model;
+<a name="l00058"></a>00058   <span class="keywordflow">if</span> (!robot_model.initXml(xml_doc)){
+<a name="l00059"></a>00059     ROS_ERROR(<span class="stringliteral">&quot;Could not generate robot model&quot;</span>);
+<a name="l00060"></a>00060     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00061"></a>00061   }
+<a name="l00062"></a>00062   <span class="keywordflow">return</span> rsgFromUrdfModel(robot_model);
+<a name="l00063"></a>00063 };
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a77a1a7db31d893df7d47cba83f6d7b04">00065</a> <span class="keywordtype">bool</span> rsgFromFile(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; file)
+<a name="l00066"></a>00066 {
+<a name="l00067"></a>00067   TiXmlDocument urdf_xml;
+<a name="l00068"></a>00068   urdf_xml.LoadFile(file);
+<a name="l00069"></a>00069   <span class="keywordflow">return</span> rsgFromXml(&amp;urdf_xml);
+<a name="l00070"></a>00070 };
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#aed39fa3297ce38d946ca0407cc5f4bc9">00073</a> <span class="keywordtype">bool</span> rsgFromParam(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; param)
+<a name="l00074"></a>00074 {
+<a name="l00075"></a>00075   urdf::Model robot_model;
+<a name="l00076"></a>00076   <span class="keywordflow">if</span> (!robot_model.initParam(param)){
+<a name="l00077"></a>00077     ROS_ERROR(<span class="stringliteral">&quot;Could not generate robot model&quot;</span>);
+<a name="l00078"></a>00078     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00079"></a>00079   }
+<a name="l00080"></a>00080   <span class="keywordflow">return</span> rsgFromUrdfModel(robot_model);
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#ab1a52a06fee5c6200941c8e7829a5fef">00083</a> <span class="keywordtype">bool</span> rsgFromString(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; xml)
+<a name="l00084"></a>00084 {
+<a name="l00085"></a>00085   TiXmlDocument urdf_xml;
+<a name="l00086"></a>00086   urdf_xml.Parse(xml.c_str());
+<a name="l00087"></a>00087   <span class="keywordflow">return</span> rsgFromXml(&amp;urdf_xml);
+<a name="l00088"></a>00088 };
 <a name="l00089"></a>00089 
-<a name="l00090"></a>00090 <span class="keyword">private</span>:
+<a name="l00090"></a><a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a73f2c38b945031a0ec3d3c229eede9d1">00090</a> <span class="keywordtype">bool</span> <a class="code" href="classrsg__urdfloader_1_1URDFtoRSG.html#a73f2c38b945031a0ec3d3c229eede9d1">loadgeometry</a>(<span class="keyword">const</span> std::string&amp; pFile){
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="comment">// recursive function to walk through tree</span>
-<a name="l00093"></a>00093 <span class="keywordtype">bool</span> addChildrenToRSG(boost::shared_ptr&lt;const urdf::Link&gt; root, rsg::Id <span class="keywordtype">id</span>);
-<a name="l00094"></a>00094 vector&lt;rsg::Attribute&gt; addJoint(boost::shared_ptr&lt;urdf::Joint&gt; jnt);
-<a name="l00095"></a>00095 vector&lt;rsg::Attribute&gt; addMassProperties(boost::shared_ptr&lt;const urdf::Link&gt; link);
-<a name="l00096"></a>00096 <span class="keywordtype">bool</span> addGeometry();
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 };
-<a name="l00102"></a>00102 }
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00092"></a>00092         
+<a name="l00093"></a>00093         Assimp::Importer importer;
+<a name="l00094"></a>00094         <span class="keyword">const</span> aiScene* scene = importer.ReadFile( pFile,
+<a name="l00095"></a>00095         aiProcess_CalcTangentSpace |
+<a name="l00096"></a>00096         aiProcess_Triangulate |
+<a name="l00097"></a>00097         aiProcess_JoinIdenticalVertices |
+<a name="l00098"></a>00098         aiProcess_SortByPType);
+<a name="l00099"></a>00099         <span class="keywordflow">if</span>( !scene)
+<a name="l00100"></a>00100         {
+<a name="l00101"></a>00101                 std::cerr &lt;&lt; <span class="stringliteral">&quot;Error Found :: &quot;</span> &lt;&lt; importer.GetErrorString() &lt;&lt; std::endl;
+<a name="l00102"></a>00102                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00103"></a>00103         }
+<a name="l00104"></a>00104         
+<a name="l00105"></a>00105         <span class="comment">//DoTheSceneProcessing( scene);</span>
+<a name="l00106"></a>00106         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 }
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="keywordtype">bool</span> visualize();
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="keyword">private</span>:
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 <span class="comment">// recursive function to walk through tree</span>
+<a name="l00116"></a>00116 <span class="keywordtype">bool</span> addChildrenToRSG(boost::shared_ptr&lt;const urdf::Link&gt; root, rsg::Id <span class="keywordtype">id</span>);
+<a name="l00117"></a>00117 vector&lt;rsg::Attribute&gt; addJoint(boost::shared_ptr&lt;urdf::Joint&gt; jnt);
+<a name="l00118"></a>00118 vector&lt;rsg::Attribute&gt; addMassProperties(boost::shared_ptr&lt;const urdf::Link&gt; link);
+<a name="l00119"></a>00119 <span class="keywordtype">bool</span> addGeometry();
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124 };
+<a name="l00125"></a>00125 }
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -175,7 +198,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <hr size="1"><div style="align: right;">
 <a href="http://ros.org/wiki/rsg_urdfloader">rsg_urdfloader</a><br />
 Author(s): </br />
-<small>autogenerated on Tue Feb 18 2014 18:19:49</small>
+<small>autogenerated on Mon Feb 24 2014 13:54:22</small>
 </div>
 </body>
 </html>

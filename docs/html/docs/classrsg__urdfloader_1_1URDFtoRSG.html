@@ -82,6 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#a73f2c38b945031a0ec3d3c229eede9d1">loadgeometry</a> (const std::string &amp;pFile)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#a77a1a7db31d893df7d47cba83f6d7b04">rsgFromFile</a> (const string &amp;file)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#aed39fa3297ce38d946ca0407cc5f4bc9">rsgFromParam</a> (const string &amp;param)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#ab1a52a06fee5c6200941c8e7829a5fef">rsgFromString</a> (const string &amp;xml)</td></tr>
@@ -98,11 +99,11 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#a171cee8009f284a47e07a7ad1110ba9a">addChildrenToRSG</a> (boost::shared_ptr&lt; const urdf::Link &gt; root, rsg::Id id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#aca11ac5f1162319b199e3744cff1194e">addGeometry</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; rsg::Attribute &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#a29ebacf54db9f8abbd6126ad860e2315">addJoint</a> (boost::shared_ptr&lt; urdf::Joint &gt; jnt)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">vector&lt; rsg::Attribute &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#ac45d09b43a73cc5fb794061883ed92ad">addMassProperties</a> (boost::shared_ptr&lt; const urdf::Link &gt; link)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">vector&lt; rsg::Attribute &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#ac15b33dd2aba57a175f0ec973d23eac8">addMassProperties</a> (boost::shared_ptr&lt; const urdf::Link &gt; link)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00035">35</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00037">37</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3bc8b1fbc41971f604bd9d9cd4545a09"></a><!-- doxytag: member="rsg_urdfloader::URDFtoRSG::URDFtoRSG" ref="a3bc8b1fbc41971f604bd9d9cd4545a09" args="()" -->
 <div class="memitem">
@@ -118,7 +119,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00040">40</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00042">42</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -136,7 +137,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00045">45</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00047">47</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -205,12 +206,12 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac45d09b43a73cc5fb794061883ed92ad"></a><!-- doxytag: member="rsg_urdfloader::URDFtoRSG::addMassProperties" ref="ac45d09b43a73cc5fb794061883ed92ad" args="(boost::shared_ptr&lt; const urdf::Link &gt; link)" -->
+<a class="anchor" id="ac15b33dd2aba57a175f0ec973d23eac8"></a><!-- doxytag: member="rsg_urdfloader::URDFtoRSG::addMassProperties" ref="ac15b33dd2aba57a175f0ec973d23eac8" args="(boost::shared_ptr&lt; const urdf::Link &gt; link)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;rsg::Attribute&gt; <a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#ac45d09b43a73cc5fb794061883ed92ad">rsg_urdfloader::URDFtoRSG::addMassProperties</a> </td>
+          <td class="memname">vector&lt; rsg::Attribute &gt; <a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#ac15b33dd2aba57a175f0ec973d23eac8">URDFtoRSG::addMassProperties</a> </td>
           <td>(</td>
           <td class="paramtype">boost::shared_ptr&lt; const urdf::Link &gt;&#160;</td>
           <td class="paramname"><em>link</em></td><td>)</td>
@@ -219,6 +220,27 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="rsg__urdfloader_8cpp_source.html#l00096">96</a> of file <a class="el" href="rsg__urdfloader_8cpp_source.html">rsg_urdfloader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a73f2c38b945031a0ec3d3c229eede9d1"></a><!-- doxytag: member="rsg_urdfloader::URDFtoRSG::loadgeometry" ref="a73f2c38b945031a0ec3d3c229eede9d1" args="(const std::string &amp;pFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classrsg__urdfloader_1_1URDFtoRSG.html#a73f2c38b945031a0ec3d3c229eede9d1">rsg_urdfloader::URDFtoRSG::loadgeometry</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>pFile</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00090">90</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -237,7 +259,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00063">63</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00065">65</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -256,7 +278,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00071">71</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00073">73</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -275,7 +297,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00081">81</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00083">83</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -313,7 +335,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00053">53</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00055">55</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -331,7 +353,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8cpp_source.html#l00095">95</a> of file <a class="el" href="rsg__urdfloader_8cpp_source.html">rsg_urdfloader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8cpp_source.html#l00106">106</a> of file <a class="el" href="rsg__urdfloader_8cpp_source.html">rsg_urdfloader.cpp</a>.</p>
 
 </div>
 </div>
@@ -347,7 +369,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00038">38</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
+<p>Definition at line <a class="el" href="rsg__urdfloader_8h_source.html#l00040">40</a> of file <a class="el" href="rsg__urdfloader_8h_source.html">rsg_urdfloader.h</a>.</p>
 
 </div>
 </div>
@@ -375,7 +397,7 @@ Private Member Functions</h2></td></tr>
 <hr size="1"><div style="align: right;">
 <a href="http://ros.org/wiki/rsg_urdfloader">rsg_urdfloader</a><br />
 Author(s): </br />
-<small>autogenerated on Tue Feb 18 2014 18:19:49</small>
+<small>autogenerated on Mon Feb 24 2014 13:54:22</small>
 </div>
 </body>
 </html>
