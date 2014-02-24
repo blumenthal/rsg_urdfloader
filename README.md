@@ -10,8 +10,10 @@ Prequisites :
 1. Install assimp from source :
           
               git clone https://github.com/assimp/assimp
-              cd assimp && mkdir build
-              cd build && cmake .. && make
+              cd assimp 
+              mkdir build  &&  cd build
+              cmake .. 
+              make
 
 
 
