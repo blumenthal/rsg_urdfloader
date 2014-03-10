@@ -108,7 +108,11 @@ bool loadgeometry(const std::string& pFile){
 }
 
 
-bool visualize();
+bool visualize()
+{
+  return true;
+}
+;
 
 private:
 
